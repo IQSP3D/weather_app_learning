@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class EveryTwoHourUpdate extends StatelessWidget {
-  final DateTime time;
-  final double temperature;
+  final String time;
+  final String temperature;
   final IconData icon;
   const EveryTwoHourUpdate(
       {super.key,
@@ -33,7 +33,7 @@ class EveryTwoHourUpdate extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const Text("301.65 k"),
+              Text('$temperature k'),
               const SizedBox(
                 height: 20,
               ),
