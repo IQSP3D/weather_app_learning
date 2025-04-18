@@ -15,13 +15,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isLoading = true;
-  double temp = 0;
-  double humidity = 0;
+  late Future<Map> weather;
   @override
   void initState() {
     super.initState();
-    getCurrentWeather();
+    weather = getCurrentWeather();
   }
 
   Future<Map> getCurrentWeather() async {
@@ -50,13 +48,15 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  setState(() {});
+                  setState(() {
+                    weather = getCurrentWeather();
+                  });
                 },
                 icon: const Icon(Icons.refresh))
           ],
         ),
         body: FutureBuilder(
-            future: getCurrentWeather(),
+            future: weather,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasError) {
                 return Center(
