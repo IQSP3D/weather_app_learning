@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:weather_app/addtional_information.dart';
 import 'package:weather_app/every_two_hour_widget_card.dart';
 import 'dart:ui';
 import 'package:http/http.dart' as http;
-
 import '.secert.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,7 +48,11 @@ class _HomePageState extends State<HomePage> {
           title: const Text("Weather App"),
           centerTitle: true,
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.refresh))
+            IconButton(
+                onPressed: () {
+                  setState(() {});
+                },
+                icon: const Icon(Icons.refresh))
           ],
         ),
         body: FutureBuilder(
@@ -98,9 +101,9 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  const Text(
-                                    "Rain",
-                                    style: TextStyle(fontSize: 20),
+                                  Text(
+                                    futureWeather[0]['weather'][0]['main'],
+                                    style: const TextStyle(fontSize: 20),
                                   ),
                                 ],
                               ),
@@ -128,29 +131,49 @@ class _HomePageState extends State<HomePage> {
                                 PointerDeviceKind.touch,
                               },
                             ),
-                            child: SingleChildScrollView(
+                            child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              child: Row(
-                                // mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  for (int i = 1; i < futureWeather.length; i++)
-                                    EveryTwoHourUpdate(
-                                        time: futureWeather[i]['dt_txt'],
-                                        temperature: futureWeather[i]['main']
-                                                ['temp']
-                                            .toString(),
-                                        icon: futureWeather[i]['weather'][0]
-                                                        ['main'] ==
-                                                    'Clouds' ||
-                                                futureWeather[i]['weather'][0]
-                                                        ['main'] ==
-                                                    'Rains'
-                                            ? Icons.water_drop_rounded
-                                            : Icons.sunny)
-                                ],
-                              ),
+                              itemCount: futureWeather.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                final time = DateFormat.j().format(
+                                    DateTime.parse(futureWeather[i]['dt_txt']));
+                                return EveryTwoHourUpdate(
+                                    time: time,
+                                    temperature: futureWeather[i]['main']
+                                            ['temp']
+                                        .toString(),
+                                    icon: futureWeather[i]['weather'][0]
+                                                    ['main'] ==
+                                                'Clouds' ||
+                                            futureWeather[i]['weather'][0]
+                                                    ['main'] ==
+                                                'Rains'
+                                        ? Icons.water_drop_rounded
+                                        : Icons.sunny);
+                              },
                             ),
                           ),
+                          // ScrollConfiguration(
+                          //   behavior: ScrollConfiguration.of(context).copyWith(
+                          //     dragDevices: {
+                          //       PointerDeviceKind.mouse,
+                          //       PointerDeviceKind.touch,
+                          //     },
+                          //   ),
+                          //   child:
+
+                          //   SingleChildScrollView(
+                          //     scrollDirection: Axis.horizontal,
+                          //     child: Row(
+                          //       // mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: [
+                          //         for (int i = 1; i < futureWeather.length; i++)
+                          //           EveryTwoHourUpdate(
+                          //
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                         const SizedBox(
                           height: 20,

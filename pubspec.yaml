@@ -7,9 +7,12 @@ environment:
   sdk: ^3.5.4
 
 dependencies:
+  bloc: ^9.0.0
   flutter:
     sdk: flutter
+  flutter_animate: ^4.5.2
   http:
+  intl: ^0.20.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
