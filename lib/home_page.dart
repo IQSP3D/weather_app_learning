@@ -94,8 +94,14 @@ class _HomePageState extends State<HomePage> {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  const Icon(
-                                    Icons.cloud,
+                                  Icon(
+                                    data['list'][0]['weather'][0]['main'] ==
+                                                'Clouds' ||
+                                            data['list'][0]['weather'][0]
+                                                    ['main'] ==
+                                                'Rain'
+                                        ? Icons.cloud
+                                        : Icons.sunny,
                                     size: 90,
                                   ),
                                   const SizedBox(
@@ -148,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                             futureWeather[i]['weather'][0]
                                                     ['main'] ==
                                                 'Rains'
-                                        ? Icons.water_drop_rounded
+                                        ? Icons.cloud
                                         : Icons.sunny);
                               },
                             ),

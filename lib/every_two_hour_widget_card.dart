@@ -29,7 +29,7 @@ class EveryTwoHourUpdate extends StatelessWidget {
                 height: 20,
                 width: 120,
               ),
-              const Icon(Icons.cloud),
+              Icon(icon),
               const SizedBox(
                 height: 20,
               ),
